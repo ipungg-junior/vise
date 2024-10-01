@@ -1,6 +1,11 @@
 #include <iostream>
+#include <string>
 #include <thread>
+#include <vector>
+#include <unordered_map>
+#include <fstream>
 #include <arpa/inet.h>
+#include <unistd.h>
 #include "core.h"
 
 int main() {
