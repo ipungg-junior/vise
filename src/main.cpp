@@ -1,51 +1,7 @@
 #include <iostream>
-#include <string>
 #include <thread>
-#include <vector>
-#include <unordered_map>
-#include <fstream>
 #include <arpa/inet.h>
-#include <unistd.h>
-#include <nlohmann/json.hpp>
-
-using json = nlohmann::json;
-
-int PORT;
-int MAX_CLIENTS;
-int MAX_THREADS;
-
-void load_config(const std::string& filename) {
-    std::ifstream config_file(filename);
-    if (!config_file.is_open()) {
-        std::cerr << "Could not open config file: " << filename << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    json config;
-    config_file >> config;
-
-    PORT = config["port"];
-    MAX_CLIENTS = config["max_clients"];
-    MAX_THREADS = config["max_threads"];
-}
-
-void handle_client(int client_socket) {
-    char buffer[1024];
-    while (true) {
-        ssize_t bytes_received = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
-        if (bytes_received <= 0) {
-            break; // Client disconnected
-        }
-        buffer[bytes_received] = '\0';
-
-        // Process message
-        std::string message(buffer);
-        std::cout << "Received: " << message << std::endl;
-
-        // Send response (echo in this case)
-        send(client_socket, buffer, bytes_received, 0);
-    }
-    close(client_socket);
-}
+#include "mqtt_server.h"
 
 int main() {
     // Load configuration
