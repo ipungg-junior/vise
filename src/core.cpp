@@ -6,12 +6,7 @@
 #include "core.h"
 #include <nlohmann/json.hpp>
 
-using json = nlohmann::json;
-
-int PORT;
-int MAX_CLIENTS;
-int MAX_THREADS;
-std::unordered_map<std::string, std::vector<std::string>> client_channels;
+using json = nlohmann::json; // Alias untuk nlohmann::json
 
 void load_config(const std::string& filename) {
     std::ifstream config_file(filename);
@@ -39,7 +34,7 @@ void handle_client(int client_socket) {
         // Parse JSON message
         std::string message(buffer);
         try {
-            json j = json::parse(message);
+            json j = json::parse(message); // Parsing JSON message
 
             std::string client_id = j["client_id"];
             std::string channel = j["channel"];
@@ -58,10 +53,9 @@ void handle_client(int client_socket) {
                     std::cout << client_id << " already has max channels subscribed." << std::endl;
                 }
             }
-        } catch (const json::parse_error& e) {
+        } catch (const nlohmann::json::parse_error& e) { // Pastikan ini benar
             std::cerr << "Parse error: " << e.what() << std::endl;
         }
     }
     close(client_socket);
 }
-
