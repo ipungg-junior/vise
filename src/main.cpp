@@ -1,7 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <arpa/inet.h>
-#include "mqtt_server.h"
+#include "core.h"
 
 int main() {
     // Load configuration
