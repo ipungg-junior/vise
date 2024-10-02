@@ -4,10 +4,10 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include "core.h"
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 
 using json = nlohmann::json; // Alias untuk nlohmann::json
-
+std::unordered_map<std::string, std::vector<std::string>> client_channels;
 void load_config(const std::string& filename) {
     std::ifstream config_file(filename);
     if (!config_file.is_open()) {
@@ -17,9 +17,6 @@ void load_config(const std::string& filename) {
     json config;
     config_file >> config;
 
-    PORT = config["port"];
-    MAX_CLIENTS = config["max_clients"];
-    MAX_THREADS = config["max_threads"];
 }
 
 void handle_client(int client_socket) {

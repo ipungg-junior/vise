@@ -8,9 +8,11 @@
 #include <unistd.h>
 #include "core.h"
 
+int port, max_clients, max_threads;
+
 int main() {
     // Load configuration
-    load_config("config.json");
+    // load_config("config.json");
 
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket == -1) {
@@ -21,7 +23,7 @@ int main() {
     sockaddr_in server_addr{};
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
-    server_addr.sin_port = htons(PORT);
+    server_addr.sin_port = htons(8888);
 
     if (bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) == -1) {
         std::cerr << "Error binding socket" << std::endl;
@@ -29,13 +31,13 @@ int main() {
         return 1;
     }
 
-    if (listen(server_socket, MAX_CLIENTS) == -1) {
+    if (listen(server_socket, max_clients) == -1) {
         std::cerr << "Error listening on socket" << std::endl;
         close(server_socket);
         return 1;
     }
 
-    std::cout << "Server listening on port " << PORT << std::endl;
+    std::cout << "Server listening on port " << std::endl;
 
     while (true) {
         int client_socket = accept(server_socket, nullptr, nullptr);
