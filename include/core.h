@@ -16,7 +16,10 @@ extern int PORT;
 extern int MAX_CLIENTS;
 extern int MAX_THREADS;
 
+
 // Struktur untuk menyimpan saluran klien
 extern std::unordered_map<std::string, std::vector<std::string>> client_channels;
+
+//extern std::map<std::string, std::vector<std::string>> client_channels;
 
 #endif // MQTT_SERVER_H

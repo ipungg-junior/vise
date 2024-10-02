@@ -8,6 +8,10 @@
 #include <unistd.h>
 #include "core.h"
 
+int PORT = 1883; // Misalnya, nilai default untuk port
+int MAX_CLIENTS = 10; // Misalnya, nilai default untuk jumlah klien maksimum
+int MAX_THREADS = 4; // Misalnya, nilai default untuk jumlah thread maksimum
+
 int main() {
     // Load configuration
     load_config("config.json");
