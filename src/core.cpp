@@ -7,7 +7,6 @@
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json; // Alias untuk nlohmann::json
-std::unordered_map<std::string, std::vector<std::string>> client_channels;
 
 void load_config(const std::string& filename) {
     std::ifstream config_file(filename);
